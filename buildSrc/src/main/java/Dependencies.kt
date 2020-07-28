@@ -25,7 +25,7 @@ object Build {
 
 object Versions {
     val gradle = "4.0.0"
-    val kotlin = "1.3.61"
+    val kotlin = "1.3.72"
     val ktx = "1.2.0"
     val nav_components = "2.3.0"
     val material_dialogs = "3.2.1"
