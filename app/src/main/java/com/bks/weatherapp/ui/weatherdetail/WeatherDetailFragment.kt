@@ -3,12 +3,14 @@ package com.bks.weatherapp.ui.weatherdetail
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bks.weather.models.WeatherInfo
 import com.bks.weather.state.weather.WeatherDetailStateEvent
 import com.bks.weatherapp.R
+import com.bks.weatherapp.util.Constants
 import com.bks.weatherapp.util.DateUtil
 import com.bks.weatherapp.util.getWeatherViewModelFactory
 import kotlinx.android.synthetic.main.fragment_weather_detail.*
@@ -67,6 +69,15 @@ class WeatherDetailFragment : Fragment(R.layout.fragment_weather_detail) {
     private fun setWeatherInfo(weatherInfo: WeatherInfo) {
         // set widget
         Log.d(TAG, "SET WEATHER PROPERTIES : $weatherInfo")
+
+        for (i in 0 until Constants.WEATHER_IMAGES.size) {
+            Log.d(TAG, "setWeatherInfo: "+ weatherInfo.weather[0].icon)
+            Log.d(TAG, "setWeatherInfo: "+ Constants.WEATHER_ICON[i])
+            if(weatherInfo.weather[0].icon.contains(Constants.WEATHER_ICON[i])) {
+                iv_weather.setImageDrawable(ContextCompat.getDrawable(iv_weather.context, Constants.WEATHER_IMAGES[i]))
+                break
+            }
+        }
 
         tv_city_name.text = weatherInfo.cityName
         tv_date.text = DateUtil.convertTimestampToStringData(weatherInfo.date)
