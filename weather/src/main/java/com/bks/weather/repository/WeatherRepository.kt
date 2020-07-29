@@ -60,6 +60,7 @@ constructor(val weatherInfoDao: WeatherInfoDao)
     }
 
 
+
     companion object {
         private const val TAG: String = "AppDebug"
 
@@ -70,8 +71,6 @@ constructor(val weatherInfoDao: WeatherInfoDao)
             repositoryJob?.cancel()
         }
 
-
-        // For Singleton instantiation
         @Volatile private var instance: WeatherRepository? = null
 
         fun getInstance(weatherInfoDao: WeatherInfoDao) =

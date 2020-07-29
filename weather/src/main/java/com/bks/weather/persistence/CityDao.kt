@@ -1,5 +1,6 @@
 package com.bks.weather.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,5 +14,10 @@ interface CityDao {
     suspend fun insertCity(city: City): Long
 
     @Query("SELECT * FROM city")
-    suspend fun getAllCities(): List<City>
+    fun getAllCities(): LiveData<List<City>>
+
+    @Query("SELECT * FROM city WHERE name = :cityName")
+    fun getCity(cityName : String) : LiveData<City>
+
+
 }

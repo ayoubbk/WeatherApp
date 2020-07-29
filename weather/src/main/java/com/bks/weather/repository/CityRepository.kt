@@ -1,9 +1,11 @@
 package com.bks.weather.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.switchMap
 import com.bks.weather.models.City
 import com.bks.weather.persistence.CityDao
 import com.bks.weather.state.city.CityListViewState
+import com.bks.weather.util.AbsentLiveData
 import com.bks.weather.util.DataState
 import com.bks.weather.util.GenericApiResponse
 import com.bks.weather.util.NetworkBoundResource
@@ -13,7 +15,6 @@ class CityRepository
 constructor(val cityDao: CityDao)
 {
 
-
     fun insertCity(city: City): LiveData<DataState<CityListViewState>> {
         return object : NetworkBoundResource<City, City, CityListViewState>(
             true,
@@ -22,7 +23,7 @@ constructor(val cityDao: CityDao)
         ) {
 
             override suspend fun createCacheRequestAndReturn() {
-                TODO("Not yet implemented")
+                cityDao.insertCity(city)
             }
 
             override suspend fun handleApiSuccessResponse(response: GenericApiResponse.ApiSuccessResponse<City>) {
@@ -34,15 +35,28 @@ constructor(val cityDao: CityDao)
             }
 
             override fun loadFromCache(): LiveData<CityListViewState> {
-                TODO("Not yet implemented")
+                return cityDao.getCity(city.name)
+                    .switchMap {
+                        object: LiveData<CityListViewState>(){
+                            override fun onActive() {
+                                super.onActive()
+                                value = CityListViewState(
+                                    newCity = it
+                                )
+                            }
+                        }
+                    }
+
+                //return AbsentLiveData.createLiveData()
             }
 
             override suspend fun updateLocalDb(cacheObject: City?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun setJob(job: Job) {
-                TODO("Not yet implemented")
+                repositoryJob?.cancel()
+                repositoryJob = job
             }
         }.asLiveData()
     }
@@ -55,19 +69,29 @@ constructor(val cityDao: CityDao)
         ) {
 
             override suspend fun createCacheRequestAndReturn() {
-                TODO("Not yet implemented")
+                // Ignore
             }
 
             override suspend fun handleApiSuccessResponse(response: GenericApiResponse.ApiSuccessResponse<City>) {
-                TODO("Not yet implemented")
+                // Ignore
             }
 
             override fun createCall(): LiveData<GenericApiResponse<City>> {
-                TODO("Not yet implemented")
+                return AbsentLiveData.createLiveData()
             }
 
             override fun loadFromCache(): LiveData<CityListViewState> {
-                TODO("Not yet implemented")
+                return cityDao.getAllCities()
+                    .switchMap {
+                        object: LiveData<CityListViewState>(){
+                            override fun onActive() {
+                                super.onActive()
+                                value = CityListViewState(
+                                    cityList = it as ArrayList<City>
+                                )
+                            }
+                        }
+                    }
             }
 
             override suspend fun updateLocalDb(cacheObject: City?) {
@@ -75,13 +99,19 @@ constructor(val cityDao: CityDao)
             }
 
             override fun setJob(job: Job) {
-                TODO("Not yet implemented")
+                repositoryJob?.cancel()
+                repositoryJob = job
             }
         }.asLiveData()
     }
 
     companion object {
-        // For Singleton instantiation
+        private var repositoryJob: Job? = null
+
+        fun cancelActiveJobs() {
+            repositoryJob?.cancel()
+        }
+
         @Volatile private var instance: CityRepository? = null
 
         fun getInstance(cityDao: CityDao) =
