@@ -28,11 +28,11 @@ object Versions {
     val kotlin = "1.3.72"
     val ktx = "1.2.0"
     val nav_components = "2.3.0"
-    val material_dialogs = "3.2.1"
     val room = "2.1.0"
     val appcompat = "1.1.0"
     val constraintlayout = "1.1.3"
     val material_design = "1.1.0"
+    val swipe_refresh_layout = "1.1.0"
     val recycler_view_version = "1.1.0"
     val card_view_version = "1.0.0"
     val coroutines_version = "1.3.0"
@@ -50,7 +50,6 @@ object Dependencies {
     val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.nav_components}"
     val navigation_runtime = "androidx.navigation:navigation-runtime:${Versions.nav_components}"
     val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.nav_components}"
-    val material_dialogs = "com.afollestad.material-dialogs:core:${Versions.material_dialogs}"
     val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     val room_ktx = "androidx.room:room-ktx:${Versions.room}"
     val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycle_version}"
@@ -63,6 +62,7 @@ object Dependencies {
     val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
     val material_design = "com.google.android.material:material:${Versions.material_design}"
+    val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_refresh_layout}"
 }
 
 

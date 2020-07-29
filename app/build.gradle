@@ -43,16 +43,14 @@ dependencies {
     implementation Dependencies.navigation_runtime
     implementation Dependencies.navigation_ui
     implementation Dependencies.navigation_fragment
-    implementation Dependencies.material_dialogs
     implementation Dependencies.recycler_view
     implementation Dependencies.card_view
 
     implementation Dependencies.appcompat
     implementation Dependencies.constraintlayout
     implementation Dependencies.material_design
+    implementation Dependencies.swipe_refresh_layout
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
 }
