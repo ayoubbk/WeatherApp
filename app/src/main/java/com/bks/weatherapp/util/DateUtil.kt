@@ -1,23 +1,35 @@
 package com.bks.weatherapp.util
 
-import java.sql.Timestamp
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DateUtil {
 
-
     companion object {
-        private val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.FRENCH)
 
-        fun convertTimestampToStringData(timestamp: Long): String{
-            val stamp = Timestamp(timestamp)
-            val date = Date(stamp.time)
-            return sdf.format(date)
+        private const val TAG = "DateUtil"
 
-
+        fun convertTimestampToStringDate(timestamp: Long): String {
+            var date = ""
+            try {
+                date = SimpleDateFormat("EEE, MMM d, yyyy hh:mm", Locale.getDefault()).format(
+                    Date(timestamp * 1000L))
+            } catch (e: Exception) {
+                Log.e(TAG, "Exception in Date formatting: " + e.message)
+            }
+            return date
         }
 
-
+        fun convertTimestampToTime(timestamp: Long): String {
+            var date = ""
+            try {
+                date = SimpleDateFormat("hh:mm", Locale.getDefault()).format(
+                    Date(timestamp * 1000L))
+            } catch (e: Exception) {
+                Log.e(TAG, "Exception in Date formatting: " + e.message)
+            }
+            return date
+        }
     }
 }

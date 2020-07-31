@@ -80,14 +80,14 @@ class WeatherDetailFragment : Fragment(R.layout.fragment_weather_detail) {
         }
 
         tv_city_name.text = weatherInfo.cityName
-        tv_date.text = DateUtil.convertTimestampToStringData(weatherInfo.date)
+        tv_date.text = DateUtil.convertTimestampToStringDate(weatherInfo.date)
         tv_status.text = weatherInfo.weather[0].description
 
         tv_temp.text = weatherInfo.main.temp.roundToInt().toString().plus(" °C")
         tv_temp_min.text = weatherInfo.main.temp_min.toString().plus(" °C")
         tv_temp_max.text = weatherInfo.main.temp_max.toString().plus(" °C")
-        tv_sunrise.text = weatherInfo.sys.sunrise.toString() // TODO Format date
-        tv_sunset.text = weatherInfo.sys.sunset.toString() // TODO Format date
+        tv_sunrise.text = DateUtil.convertTimestampToTime(weatherInfo.sys.sunrise)
+        tv_sunset.text = DateUtil.convertTimestampToTime(weatherInfo.sys.sunset)
         tv_wind.text = weatherInfo.wind.speed.toString()
         tv_pressure.text = weatherInfo.main.pressure.toString()
         tv_humidity.text = weatherInfo.main.humidity.toString()
