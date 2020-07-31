@@ -19,7 +19,7 @@ constructor(val cityDao: CityDao)
         return object : NetworkBoundResource<City, City, CityListViewState>(
             true,
             false,
-            true
+            false
         ) {
 
             override suspend fun createCacheRequestAndReturn() {
@@ -46,8 +46,6 @@ constructor(val cityDao: CityDao)
                             }
                         }
                     }
-
-                //return AbsentLiveData.createLiveData()
             }
 
             override suspend fun updateLocalDb(cacheObject: City?) {
@@ -67,6 +65,7 @@ constructor(val cityDao: CityDao)
             false,
             true
         ) {
+
 
             override suspend fun createCacheRequestAndReturn() {
                 // Ignore

@@ -126,6 +126,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:src="@drawable/ic_sunrise"
                         android:tint="#FFFFFF" />
 
                     <Space
@@ -164,6 +165,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:src="@drawable/ic_sunrise"
                         android:tint="#FFFFFF" />
 
                     <Space
@@ -202,6 +204,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:src="@drawable/ic_wind"
                         android:tint="#FFFFFF" />
 
                     <Space
@@ -247,6 +250,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:src="@drawable/ic_pressure"
                         android:tint="#FFFFFF" />
 
                     <Space
@@ -285,6 +289,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:src="@drawable/ic_humidity"
                         android:tint="#FFFFFF" />
 
                     <Space

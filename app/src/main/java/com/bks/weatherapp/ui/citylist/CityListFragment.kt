@@ -19,8 +19,10 @@ import com.bks.weatherapp.R
 import com.bks.weatherapp.ui.weatherdetail.CITY_DETAIL_SELECTED_BUNDLE_KEY
 import com.bks.weatherapp.util.TopSpacingItemDecoration
 import com.bks.weatherapp.util.getCityViewModelFactory
+import com.bks.weatherapp.util.toArrayList
 import kotlinx.android.synthetic.main.fragment_city_list.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 private const val TAG = "CityListFragment"
@@ -54,7 +56,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list), CityListAdapter.
             addItemDecoration(topSpacingDecorator)
 
             listAdapter = CityListAdapter(this@CityListFragment)
-
             adapter = listAdapter
         }
     }
@@ -68,7 +69,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list), CityListAdapter.
                 dataState.data?.let {data->
                     data.data?.let{event ->
                         event.getContentIfNotHandled()?.let{ viewState ->
-
                             Log.d(TAG, "CityListFragment, DataState: $viewState")
                             viewState.cityList.let {
                                 viewModel.setCityListData(it)
@@ -87,7 +87,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list), CityListAdapter.
         viewModel.viewState.observe(viewLifecycleOwner, Observer {viewState ->
             viewState?.let {
                 it.cityList?.let {cityList->
-                    Log.d(TAG, "subscribeObserver: submit list to adapter : $cityList")
                     listAdapter?.submitList(cityList)
                     listAdapter?.notifyDataSetChanged()
                 }
@@ -112,7 +111,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list), CityListAdapter.
 
 
     override fun onItemSelected(position: Int, item: City) {
-        Log.d(TAG, "onItemSelected: city selected pos : $position  cityName : ${item.name}")
         viewModel.setCityData(item)
     }
 
@@ -166,12 +164,23 @@ class CityListFragment : Fragment(R.layout.fragment_city_list), CityListAdapter.
             builder.setPositiveButton(android.R.string.yes) { dialog, _ ->
 
                 val newCity = City(UUID.randomUUID().toString(), input.text.toString())
+
+                // add new city to list manually cause there is some issue when returning result after inserting City to DB
+                // the event of inserting data to db is triggered and the City is inserted but there is an issue displaying it to recycler view
+                val currentCityList = listAdapter?.getCurrentList()?.toArrayList()
+                currentCityList?.add(newCity)
+                currentCityList?.let {newList ->
+                    listAdapter?.submitList(newList)
+                    listAdapter?.notifyDataSetChanged()
+                }
+
                 // trigger the StateEvent
                 viewModel.setStateEvent(
                     CityListStateEvent.AddCityEvent(
                         newCity.name
                     )
                 )
+
                 dialog.dismiss()
             }
 

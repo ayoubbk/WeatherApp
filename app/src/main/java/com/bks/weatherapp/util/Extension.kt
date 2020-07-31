@@ -14,3 +14,7 @@ fun Fragment.getWeatherViewModelFactory(): WeatherViewModelFactory {
     val repository = (requireContext().applicationContext as WeatherApplication).weatherRepository
     return WeatherViewModelFactory(repository, this)
 }
+
+fun <T> List<T>.toArrayList(): ArrayList<T>{
+    return ArrayList(this)
+}

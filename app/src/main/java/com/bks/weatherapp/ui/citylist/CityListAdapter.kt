@@ -55,6 +55,10 @@ class CityListAdapter(private val interaction: Interaction? = null) :
         differ.submitList(list)
     }
 
+    fun getCurrentList() : List<City> {
+        return differ.currentList
+    }
+
     class CityViewHolder
     constructor(
         itemView: View,

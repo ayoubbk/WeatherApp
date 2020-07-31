@@ -29,6 +29,7 @@ abstract class NetworkBoundResource<ResponseObject, CacheObject, ViewStateType>
     protected lateinit var coroutineScope: CoroutineScope
 
     init {
+        // ****** STEP 1: VIEW CACHE ******
         setJob(initNewJob())
         setValue(DataState.loading(isLoading = true, cachedData = null))
 
@@ -41,6 +42,7 @@ abstract class NetworkBoundResource<ResponseObject, CacheObject, ViewStateType>
             }
         }
 
+        // ****** STEP 2 : MAKE NETWORK REQUEST, SAVE RESULT TO CACHE ******
         if(isNetworkRequest) {
             if(isNetworkAvailable) {
                 coroutineScope.launch {
