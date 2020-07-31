@@ -13,7 +13,7 @@ class DateUtil {
         fun convertTimestampToStringDate(timestamp: Long): String {
             var date = ""
             try {
-                date = SimpleDateFormat("EEE, MMM d, yyyy hh:mm", Locale.getDefault()).format(
+                date = SimpleDateFormat("EEE, MMM d, yyyy HH:mm", Locale.getDefault()).format(
                     Date(timestamp * 1000L))
             } catch (e: Exception) {
                 Log.e(TAG, "Exception in Date formatting: " + e.message)
@@ -24,7 +24,7 @@ class DateUtil {
         fun convertTimestampToTime(timestamp: Long): String {
             var date = ""
             try {
-                date = SimpleDateFormat("hh:mm", Locale.getDefault()).format(
+                date = SimpleDateFormat("HH:mm", Locale.getDefault()).format(
                     Date(timestamp * 1000L))
             } catch (e: Exception) {
                 Log.e(TAG, "Exception in Date formatting: " + e.message)

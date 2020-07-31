@@ -71,15 +71,13 @@ class WeatherDetailFragment : Fragment(R.layout.fragment_weather_detail) {
         Log.d(TAG, "SET WEATHER PROPERTIES : $weatherInfo")
 
         for (i in 0 until Constants.WEATHER_IMAGES.size) {
-            Log.d(TAG, "setWeatherInfo: "+ weatherInfo.weather[0].icon)
-            Log.d(TAG, "setWeatherInfo: "+ Constants.WEATHER_ICON[i])
             if(weatherInfo.weather[0].icon.contains(Constants.WEATHER_ICON[i])) {
                 iv_weather.setImageDrawable(ContextCompat.getDrawable(iv_weather.context, Constants.WEATHER_IMAGES[i]))
                 break
             }
         }
 
-        tv_city_name.text = weatherInfo.cityName
+        tv_city_name.text = weatherInfo.cityName.plus(", "+weatherInfo.sys.country)
         tv_date.text = DateUtil.convertTimestampToStringDate(weatherInfo.date)
         tv_status.text = weatherInfo.weather[0].description
 
